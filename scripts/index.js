@@ -5,7 +5,6 @@ const cardsContainer = document.querySelector(".places__list");
 // Объявление функций для управления карточкой
 const cardHandler = {
     // Функция удаления карточки
-    // Не согласен с замечанием, тк метод remove удаляет элемент только из DOM дерева, хотя было бы логичнее удалять элемент из исходной "БД"
     removeCard: function (cardData) {
         initialCards.forEach((card, i) => {
             if (card.name === cardData.name) initialCards.splice(i, 1);
