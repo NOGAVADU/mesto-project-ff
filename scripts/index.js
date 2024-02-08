@@ -2,33 +2,40 @@
 const cardsTemplate = document.querySelector("#card-template").content; //Разметка карточки
 const cardsContainer = document.querySelector(".places__list");
 
+// Объявление функций для управления карточкой
+const cardHandler = {
+    // Функция удаления карточки
+    // Не согласен с замечанием, тк метод remove удаляет элемент только из DOM дерева, хотя было бы логичнее удалять элемент из исходной "БД"
+    removeCard: function (cardData) {
+        initialCards.forEach((card, i) => {
+            if (card.name === cardData.name) initialCards.splice(i, 1);
+        });
+        renderCards();
+    },
+};
+
 // Функция отрисовки карточек
 function renderCards() {
     cardsContainer.innerHTML = ""; //Очистка контейнера
     cardsContainer.append(
-        ...initialCards.map((cardData) => createCard(cardData))
+        ...initialCards.map((cardData) => createCard(cardData, cardHandler))
     ); //Подгрузка карточек из массива и добавление их в контейнер
 }
 
 // Функция создания карточки
-function createCard(cardData) {
+function createCard(cardData, { removeCard }) {
     // Получение необходимых элементов и разметки карточки
     const card = cardsTemplate.querySelector(".card").cloneNode(true);
     const deleteBtn = card.querySelector(".card__delete-button");
-    // Наполнение элемента карточки контеном ( + Случайное изображение, чтобы не было пусто)
-    card.querySelector(".card__title").textContent = cardData.name;
-    card.querySelector(".card__image").src =
-        "https://plus.unsplash.com/premium_photo-1679314213957-909df10381ac?q=80&w=2127&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+    const cardTitle = card.querySelector(".card__title");
+    const cardImg = card.querySelector(".card__image");
+    // Наполнение элемента карточки контеном
+    cardTitle.textContent = cardData.name;
+    cardImg.src = cardData.link;
+    cardImg.alt = cardData.name + ' красивое фото в цвете';
     // Обработчики событий для элемента карточки
     deleteBtn.addEventListener("click", () => removeCard(cardData));
     return card;
-}
-// Функция удаления карточки
-function removeCard(cardData) {
-    initialCards.forEach((card, i) => {
-        if (card.name === cardData.name) initialCards.splice(i, 1);
-    });
-    renderCards();
 }
 
 renderCards();
