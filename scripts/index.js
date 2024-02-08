@@ -5,11 +5,10 @@ const cardsContainer = document.querySelector(".places__list");
 // Объявление функций для управления карточкой
 const cardHandler = {
     // Функция удаления карточки
-    removeCard: function (cardData) {
-        initialCards.forEach((card, i) => {
-            if (card.name === cardData.name) initialCards.splice(i, 1);
-        });
-        renderCards();
+
+    removeCard: function (card) {
+        // Понял вас, спасибо за замечания. Как-то вообще из головы вылетела дороговизна операций, извиняюсь
+        card.remove()
     },
 };
 
@@ -33,7 +32,7 @@ function createCard(cardData, { removeCard }) {
     cardImg.src = cardData.link;
     cardImg.alt = cardData.name + ' красивое фото в цвете';
     // Обработчики событий для элемента карточки
-    deleteBtn.addEventListener("click", () => removeCard(cardData));
+    deleteBtn.addEventListener("click", () => removeCard(card));
     return card;
 }
 
