@@ -5,9 +5,7 @@ const cardsContainer = document.querySelector(".places__list");
 // Объявление функций для управления карточкой
 const cardHandler = {
     // Функция удаления карточки
-
     removeCard: function (card) {
-        // Понял вас, спасибо за замечания. Как-то вообще из головы вылетела дороговизна операций, извиняюсь
         card.remove()
     },
 };
