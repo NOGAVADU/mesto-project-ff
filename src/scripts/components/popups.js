@@ -1,19 +1,19 @@
 function openPopup(popup) {
     popup.classList.add('popup_is-opened')
-    document.addEventListener('keydown', (e) => keyHandler(e, popup))
+    document.addEventListener('keydown', handleEscape)
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_is-opened')
-    document.removeEventListener('keydown', (e) => keyHandler(e, popup))
+    document.removeEventListener('keydown', handleEscape)
 }
 
-function keyHandler(e, popup) {
+function handleEscape (e) {
     if (e.key === 'Escape') {
-        closePopup(popup)
+        const openedPopup = document.querySelector('.popup_is-opened')
+        closePopup(openedPopup)
     }
 }
-
 function setPopupListener(popup, openBtn) {
     const closeBtn = popup.querySelector('.popup__close')
     // Добавление прослушивания событий
