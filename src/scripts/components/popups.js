@@ -14,11 +14,11 @@ function keyHandler(e, popup) {
     }
 }
 
-function createPopup(popup, openBtn) {
+function setPopupListener(popup, openBtn) {
     const closeBtn = popup.querySelector('.popup__close')
-
     // Добавление прослушивания событий
     openBtn.addEventListener('click', () => openPopup(popup))
+    // openBtn.addEventListener('click', () => openPopup(popup))
     closeBtn.addEventListener('click', () => closePopup(popup))
     // Обработка клика по Overlay
     popup.addEventListener('click', (e) => {
@@ -29,4 +29,4 @@ function createPopup(popup, openBtn) {
 }
 
 
-export {createPopup, openPopup, closePopup}
+export {setPopupListener, openPopup, closePopup}

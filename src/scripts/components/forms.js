@@ -1,5 +1,5 @@
 import {closePopup} from "./popups";
-import {createCard, cardsContainer} from "./cards";
+import {createCard, cardsContainer, cardHandlers} from "./cards";
 // Объявление констант для popup редактирования профиля
 const profileFormElement = document.forms['edit-profile'];
 const profileNameInput = profileFormElement.elements.name;
@@ -24,7 +24,7 @@ function handleProfileFormSubmit (e) {
 
 function handleCardFormSubmit (e) {
     e.preventDefault()
-    const newCard = createCard({name: cardNameInput.value, link: cardLinkInput.value})
+    const newCard = createCard({name: cardNameInput.value, link: cardLinkInput.value}, cardHandlers)
 
     cardsContainer.prepend(newCard)
 

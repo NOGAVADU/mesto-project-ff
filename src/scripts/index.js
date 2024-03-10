@@ -1,6 +1,6 @@
 import '../pages/index.css'
 import {renderCards} from "./components/cards";
-import {createPopup} from "./components/popups";
+import {setPopupListener} from "./components/popups";
 import {profileFormElement, cardFormElement} from "./components/forms";
 
 // Получение необходимых элементов и разметки
@@ -10,7 +10,7 @@ const newCardPopup = document.querySelector(".popup_type_new-card");
 const editPopupBtn = document.querySelector(".profile__edit-button");
 const newCardPopupBtn = document.querySelector(".profile__add-button");
 
-createPopup(editProfilePopup, editPopupBtn)
-createPopup(newCardPopup, newCardPopupBtn)
+setPopupListener(editProfilePopup, editPopupBtn)
+setPopupListener(newCardPopup, newCardPopupBtn)
 
 renderCards()

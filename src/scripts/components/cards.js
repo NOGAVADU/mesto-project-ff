@@ -1,8 +1,11 @@
-import {createPopup} from "./popups";
+import {setPopupListener, openPopup} from "./popups";
 
 const cardsContainer = document.querySelector(".places__list");
-const cardPopup = document.querySelector(".popup_type_image");
 const cardsTemplate = document.querySelector("#card-template").content; //Разметка карточки
+const cardPopup = document.querySelector(".popup_type_image");
+const popupImg = cardPopup.querySelector('.popup__image')
+const popupCaption = cardPopup.querySelector('.popup__caption')
+let wasOpened = false
 const initialCards = [
     {
         name: "Архыз",
@@ -30,9 +33,8 @@ const initialCards = [
     },
 ];
 
-
 // Объявление функций для управления карточкой
-const cardHandler = {
+const cardHandlers = {
     removeCard: function (card) {
         card.remove()
     },
@@ -40,8 +42,11 @@ const cardHandler = {
             likeBtn.classList.toggle('card__like-button_is-active')
     },
     openCardPopup: function (cardTitle, cardImg) {
-        const popupImg = cardPopup.querySelector('.popup__image')
-        const popupCaption = cardPopup.querySelector('.popup__caption')
+        if (!wasOpened) {
+            setPopupListener(cardPopup, cardImg)
+            wasOpened = true
+        }
+        openPopup(cardPopup)
         popupImg.src = cardImg.src
         popupImg.alt = cardImg.alt
         popupCaption.textContent = cardTitle.textContent
@@ -52,12 +57,12 @@ const cardHandler = {
 function renderCards() {
     cardsContainer.innerHTML = ""; //Очистка контейнера
     cardsContainer.append(
-        ...initialCards.map((cardData) => createCard(cardData, cardHandler))
+        ...initialCards.map((cardData) => createCard(cardData, cardHandlers))
     ); //Подгрузка карточек из массива и добавление их в контейнер
 }
 
 // Функция создания карточки
-function createCard(cardData) {
+function createCard(cardData, cardHandlers) {
     // Получение необходимых элементов и разметки карточки
     const card = cardsTemplate.querySelector(".card").cloneNode(true);
     const likeBtn = card.querySelector('.card__like-button')
@@ -69,11 +74,10 @@ function createCard(cardData) {
     cardImg.src = cardData.link;
     cardImg.alt = cardData.name + ' красивое фото в цвете';
     // Обработчики событий для элемента карточки
-    createPopup(cardPopup, cardImg)
-    deleteBtn.addEventListener("click", () => cardHandler.removeCard(card));
-    likeBtn.addEventListener('click', () => cardHandler.likeCard(likeBtn))
-    cardImg.addEventListener('click', () => cardHandler.openCardPopup(cardTitle, cardImg))
+    deleteBtn.addEventListener("click", () => cardHandlers.removeCard(card));
+    likeBtn.addEventListener('click', () => cardHandlers.likeCard(likeBtn))
+    cardImg.addEventListener('click', () => cardHandlers.openCardPopup(cardTitle, cardImg))
     return card;
 }
 
-export {cardsContainer, createCard, renderCards}
+export {cardsContainer, cardHandlers, createCard, renderCards}
