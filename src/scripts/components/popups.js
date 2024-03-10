@@ -29,4 +29,4 @@ function createPopup(popup, openBtn) {
 }
 
 
-export {createPopup, closePopup}
+export {createPopup, openPopup, closePopup}
