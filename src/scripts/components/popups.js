@@ -18,10 +18,9 @@ function setPopupListener(popup, openBtn) {
     const closeBtn = popup.querySelector('.popup__close')
     // Добавление прослушивания событий
     openBtn.addEventListener('click', () => openPopup(popup))
-    // openBtn.addEventListener('click', () => openPopup(popup))
     closeBtn.addEventListener('click', () => closePopup(popup))
     // Обработка клика по Overlay
-    popup.addEventListener('click', (e) => {
+    popup.addEventListener('mousedown', (e) => {
         if (e.currentTarget === e.target) {
             closePopup(popup)
         }
