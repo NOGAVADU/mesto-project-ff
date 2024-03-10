@@ -14,7 +14,6 @@ const profilePopup = document.querySelector(".popup_type_edit")
 const cardFormElement = document.forms['new-place']
 const cardNameInput = cardFormElement.elements['place-name']
 const cardLinkInput = cardFormElement.elements.link
-const newCard = createCard({name: cardNameInput.value, link: cardLinkInput.value}, cardHandlers)
 const cardPopup = document.querySelector(".popup_type_new-card")
 
 function handleProfileFormSubmit (e) {
@@ -29,6 +28,7 @@ function handleProfileFormSubmit (e) {
 function handleCardFormSubmit (e) {
     e.preventDefault()
 
+    const newCard = createCard({name: cardNameInput.value, link: cardLinkInput.value}, cardHandlers)
     cardsContainer.prepend(newCard)
 
     cardFormElement.reset()

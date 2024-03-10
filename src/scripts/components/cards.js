@@ -42,10 +42,6 @@ const cardHandlers = {
             likeBtn.classList.toggle('card__like-button_is-active')
     },
     openCardPopup: function (cardTitle, cardImg) {
-        if (!wasOpened) {
-            setPopupListener(cardPopup, cardImg)
-            wasOpened = true
-        }
         openPopup(cardPopup)
         popupImg.src = cardImg.src
         popupImg.alt = cardImg.alt
@@ -79,5 +75,7 @@ function createCard(cardData, cardHandlers) {
     cardImg.addEventListener('click', () => cardHandlers.openCardPopup(cardTitle, cardImg))
     return card;
 }
+
+setPopupListener(cardPopup)
 
 export {cardsContainer, cardHandlers, createCard, renderCards}
