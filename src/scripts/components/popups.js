@@ -28,4 +28,5 @@ function createPopup(popup, openBtn) {
     })
 }
 
-export {createPopup}
+
+export {createPopup, closePopup}
