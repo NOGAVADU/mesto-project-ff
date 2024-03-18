@@ -17,7 +17,6 @@ function handleEscape (e) {
 function setPopupListener(popup) {
     const closeBtn = popup.querySelector('.popup__close')
     // Добавление прослушивания событий
-    // openBtn.addEventListener('click', () => openPopup(popup))
     closeBtn.addEventListener('click', () => closePopup(popup))
     // Обработка клика по Overlay
     popup.addEventListener('mousedown', (e) => {

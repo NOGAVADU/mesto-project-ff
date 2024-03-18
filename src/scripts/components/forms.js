@@ -6,9 +6,6 @@ const profileNameInput = profileFormElement.elements.name;
 const profileJobInput = profileFormElement.elements.description;
 const profileName = document.querySelector(".profile__title");
 const profileJob = document.querySelector(".profile__description");
-// Начальные значения инпутов
-profileNameInput.value = profileName.textContent
-profileJobInput.value = profileJob.textContent
 const profilePopup = document.querySelector(".popup_type_edit")
 // Объявление констант для popup создания карточки
 const cardFormElement = document.forms['new-place']
@@ -16,6 +13,11 @@ const cardNameInput = cardFormElement.elements['place-name']
 const cardLinkInput = cardFormElement.elements.link
 const cardPopup = document.querySelector(".popup_type_new-card")
 
+
+function handleProfileInputs () {
+    profileNameInput.value = profileName.textContent
+    profileJobInput.value = profileJob.textContent
+}
 function handleProfileFormSubmit (e) {
     e.preventDefault()
 
@@ -35,4 +37,4 @@ function handleCardFormSubmit (e) {
     closePopup(cardPopup)
 }
 
-export {profileFormElement, cardFormElement, handleProfileFormSubmit, handleCardFormSubmit}
+export {profileFormElement, cardFormElement, handleProfileFormSubmit, handleProfileInputs, handleCardFormSubmit}
