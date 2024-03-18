@@ -1,5 +1,6 @@
 import {closePopup} from "./popups";
 import {createCard, cardsContainer, cardHandlers} from "./cards";
+import {enableValidation} from "../validation";
 // Объявление констант для popup редактирования профиля
 const profileFormElement = document.forms['edit-profile'];
 const profileNameInput = profileFormElement.elements.name;
@@ -12,9 +13,10 @@ const cardFormElement = document.forms['new-place']
 const cardNameInput = cardFormElement.elements['place-name']
 const cardLinkInput = cardFormElement.elements.link
 const cardPopup = document.querySelector(".popup_type_new-card")
+// Включение валидации для форм
+enableValidation([profileFormElement, cardFormElement])
 
-
-function handleProfileInputs () {
+function fillProfileInputs () {
     profileNameInput.value = profileName.textContent
     profileJobInput.value = profileJob.textContent
 }
@@ -37,4 +39,4 @@ function handleCardFormSubmit (e) {
     closePopup(cardPopup)
 }
 
-export {profileFormElement, cardFormElement, handleProfileFormSubmit, handleProfileInputs, handleCardFormSubmit}
+export {profileFormElement, cardFormElement, handleProfileFormSubmit, fillProfileInputs, handleCardFormSubmit}

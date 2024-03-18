@@ -1,7 +1,8 @@
 import '../pages/index.css'
 import {renderCards} from "./components/cards";
 import {setPopupListener, openPopup} from "./components/popups";
-import {profileFormElement, cardFormElement, handleProfileFormSubmit, handleProfileInputs, handleCardFormSubmit} from "./components/forms";
+import {profileFormElement, cardFormElement, handleProfileFormSubmit, fillProfileInputs, handleCardFormSubmit} from "./components/forms";
+import {validationPopupOpener} from "./validation";
 
 // Получение необходимых элементов и разметки
 const editProfilePopup = document.querySelector(".popup_type_edit");
@@ -13,10 +14,14 @@ const newCardPopupBtn = document.querySelector(".profile__add-button");
 setPopupListener(editProfilePopup)
 setPopupListener(newCardPopup)
 editProfilePopupBtn.addEventListener('click',() => {
-    handleProfileInputs()
+    fillProfileInputs()
+    validationPopupOpener(profileFormElement)
     openPopup(editProfilePopup)
 })
-newCardPopupBtn.addEventListener('click', () => openPopup(newCardPopup))
+newCardPopupBtn.addEventListener('click', () => {
+    validationPopupOpener(cardFormElement)
+    openPopup(newCardPopup)
+})
 
 profileFormElement.addEventListener('submit', handleProfileFormSubmit)
 cardFormElement.addEventListener('submit', handleCardFormSubmit)
