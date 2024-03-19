@@ -37,6 +37,7 @@ newCardPopupBtn.addEventListener('click', () => {
 })
 
 avatarPopupBtn.addEventListener('click', () => {
+    validationPopupOpener(avatarFormElement)
     openPopup(avatarPopup)
 })
 

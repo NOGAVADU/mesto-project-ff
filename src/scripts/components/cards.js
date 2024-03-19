@@ -15,6 +15,7 @@ const cardHandlers = {
         openPopup(deleteCardPopup)
     },
     setCardsLikes: function (cardList, user) {
+        // Добавление свойства liked, понравившимся пользователю карточек
         for (let i = 0; i < cardList.length; i++) {
             for (let j = 0; j < cardList[i].likes.length; j++) {
                 if (cardList[i].likes[j]._id === user._id) {
