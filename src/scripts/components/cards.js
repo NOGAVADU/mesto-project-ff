@@ -30,9 +30,7 @@ const cardHandlers = {
             card.liked = !card.liked;
             likeAmount.textContent = res.likes.length;
             likeBtn.classList.toggle('card__like-button_is-active')
-        }).catch(err => {
-            console.log(err)
-        })
+        }).catch(err => console.log(err))
     },
     openCardPopup: function (cardTitle, cardImg) {
         openPopup(cardPopup)

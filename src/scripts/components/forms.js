@@ -46,7 +46,7 @@ export function handleDeleteCardSubmit(e, cardId, card) {
         .finally(() => {
             closePopup(deleteCardPopup)
             deleteCardSubmitBtn.textContent = 'Удалить'
-        })
+        }).catch(err => console.log(err))
 }
 
 export function handleAvatarFormSubmit(e) {
@@ -60,7 +60,7 @@ export function handleAvatarFormSubmit(e) {
         .finally(() => {
             closePopup(avatarPopup)
             avatarSubmitBtn.textContent = 'Сохранить'
-        })
+        }).catch(err => console.log(err))
 }
 
 export function handleProfileFormSubmit(e) {
@@ -72,7 +72,7 @@ export function handleProfileFormSubmit(e) {
         .finally(() => {
             closePopup(profilePopup)
             profileSubmitBtn.textContent = 'Сохранить'
-        })
+        }).catch(err => console.log(err))
 }
 
 export function handleCardFormSubmit(e) {
@@ -85,7 +85,7 @@ export function handleCardFormSubmit(e) {
     }).finally(() => {
         closePopup(cardPopup)
         cardSubmitBtn.textContent = 'Сохранить'
-    })
+    }).catch(err => console.log(err))
 
     cardFormElement.reset()
 }
