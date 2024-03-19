@@ -5,14 +5,17 @@ const config = {
         'Content-Type': 'application/json'
     }
 }
+
+const handleResponse = (res) => {
+    if (res.ok) return res.json()
+    return Promise.reject(`Ошибка: ${res.status}`);
+}
+
 // API для карточек=====================================================================================================
 export const getInitialCards = fetch(config.baseUrl + '/cards', {
     method: 'GET',
     headers: config.headers
-}).then(res => {
-    if (res.ok) return res.json()
-    return Promise.reject(`Ошибка: ${res.status}`);
-}).catch(err => console.log(err))
+}).then(handleResponse)
 
 export const createCard = (name, link) => {
     return fetch(config.baseUrl + '/cards', {
@@ -22,49 +25,34 @@ export const createCard = (name, link) => {
             name: name,
             link: link,
         })
-    }).then(res => {
-        if (res.ok) return res.json()
-        return Promise.reject(`Ошибка: ${res.status}`);
-    }).catch(err => console.log(err))
+    }).then(handleResponse)
 }
 
 export const likeCard = (cardId) => {
     return fetch(config.baseUrl + `/cards/likes/${cardId}`, {
         method: 'PUT',
         headers: config.headers,
-    }).then(res => {
-        if (res.ok) return res.json()
-        return Promise.reject(`Ошибка: ${res.status}`);
-    }).catch(err => console.log(err))
+    }).then(handleResponse)
 }
 
 export const removeCardLike = (cardId) => {
     return fetch(config.baseUrl + `/cards/likes/${cardId}`, {
         method: 'DELETE',
         headers: config.headers,
-    }).then(res => {
-        if (res.ok) return res.json()
-        return Promise.reject(`Ошибка: ${res.status}`);
-    }).catch(err => console.log(err))
+    }).then(handleResponse)
 }
 
 export const deleteCard = (cardId) => {
     return fetch(config.baseUrl + `/cards/${cardId}`, {
         method: 'DELETE',
         headers: config.headers,
-    }).then(res => {
-        if (res.ok) return res.json()
-        return Promise.reject(`Ошибка: ${res.status}`);
-    }).catch(err => console.log(err))
+    }).then(handleResponse)
 }
 // API для профиля======================================================================================================
 export const getUser = fetch(config.baseUrl + '/users/me', {
     method: 'GET',
     headers: config.headers
-}).then(res => {
-    if (res.ok) return res.json()
-    return Promise.reject(`Ошибка: ${res.status}`);
-}).catch(err => console.log(err))
+}).then(handleResponse)
 
 export const updateUser = (name, description) => {
     return fetch(config.baseUrl + '/users/me', {
@@ -74,10 +62,7 @@ export const updateUser = (name, description) => {
             name: name,
             about: description,
         })
-    }).then(res => {
-        if (res.ok) return res.json()
-        return Promise.reject(`Ошибка: ${res.status}`);
-    }).catch(err => console.log(err))
+    }).then(handleResponse)
 }
 export const updateUserAvatar = (imageUrl) => {
     return fetch(config.baseUrl + '/users/me/avatar', {
@@ -86,8 +71,5 @@ export const updateUserAvatar = (imageUrl) => {
         body: JSON.stringify({
             avatar: imageUrl,
         })
-    }).then(res => {
-        if (res.ok) return res.json()
-        return Promise.reject(`Ошибка: ${res.status}`);
-    }).catch(err => console.log(err))
+    }).then(handleResponse)
 }
