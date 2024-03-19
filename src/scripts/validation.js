@@ -1,65 +1,61 @@
-const showInputError = (formElement, inputElement, errorMessage) => {
+const showInputError = (formElement, inputElement, errorMessage, config) => {
     const errorElement = formElement.querySelector(`.${inputElement.name}-input-error`);
-    inputElement.classList.add('popup__input_type_error');
+    inputElement.classList.add(config.inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add('popup__input-error');
+    errorElement.classList.add(config.errorClass);
 };
 
-const hideInputError = (formElement, inputElement) => {
+const hideInputError = (formElement, inputElement, config) => {
     const errorElement = formElement.querySelector(`.${inputElement.name}-input-error`);
-    inputElement.classList.remove('popup__input_type_error');
-    errorElement.classList.remove('popup__input-error');
+    inputElement.classList.remove(config.inputErrorClass);
+    errorElement.classList.remove(config.errorClass);
     errorElement.textContent = '';
 };
 
-const validationPopupOpener = (formElement) => {
-    const buttonElement = formElement.querySelector('.popup__button')
-    clearInputErrors(formElement)
+const clearValidation = (formElement, config) => {
+    const buttonElement = formElement.querySelector(config.submitButtonSelector)
+    clearInputErrors(formElement, config)
     setDefaultButtonState(buttonElement)
 }
-const clearInputErrors = (formElement) => {
-    const errorList = formElement.querySelectorAll('.form__input-error')
-    const inputList = formElement.querySelectorAll('.popup__input')
-    Array.from(errorList).forEach(errorElement => {
-        errorElement.classList.remove('popup__input-error');
-        errorElement.textContent = '';
-    })
+const clearInputErrors = (formElement, config) => {
+    const inputList = formElement.querySelectorAll(config.inputSelector)
     Array.from(inputList).forEach(inputElement => {
-        inputElement.classList.remove('popup__input_type_error');
+        hideInputError(formElement, inputElement, config)
     })
 }
 const setDefaultButtonState = (buttonElement) => {
     buttonElement.disabled = true
 }
-const checkInputValidity = (formElement, inputElement) => {
+const checkInputValidity = (formElement, inputElement, config) => {
     if (inputElement.validity.patternMismatch){
-        inputElement.setCustomValidity("Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы")
+        inputElement.setCustomValidity(inputElement.dataset.error)
     } else {
         inputElement.setCustomValidity('')
     }
 
     if (!inputElement.validity.valid) {
-        showInputError(formElement, inputElement, inputElement.validationMessage);
+        showInputError(formElement, inputElement, inputElement.validationMessage, config);
     } else {
-        hideInputError(formElement, inputElement);
+        hideInputError(formElement, inputElement, config);
     }
 };
 
-const setEventListeners = (formElement) => {
-    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-    const buttonElement = formElement.querySelector('.popup__button')
+const setEventListeners = (formElement, config) => {
+    const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+    const buttonElement = formElement.querySelector(config.submitButtonSelector)
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', function () {
-            checkInputValidity(formElement, inputElement);
+            checkInputValidity(formElement, inputElement, config);
             toggleButtonState(inputList, buttonElement)
         });
     });
     toggleButtonState(inputList, buttonElement)
 };
 
-const enableValidation = (formList) => {
-    formList.forEach(formElement => {
-        setEventListeners(formElement)
+const enableValidation = (config) => {
+    const formList = document.querySelectorAll(config.formSelector);
+    formList.forEach((formElement) => {
+        setEventListeners(formElement, config);
     })
 };
 
@@ -77,4 +73,4 @@ function toggleButtonState(inputList, buttonElement) {
     }
 }
 
-export {enableValidation, validationPopupOpener}
+export {enableValidation, clearValidation}

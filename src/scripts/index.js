@@ -8,9 +8,10 @@ import {
     fillProfileInputs,
     handleCardFormSubmit, avatarFormElement, handleAvatarFormSubmit, deleteCardFormElement, handleDeleteCardSubmit
 } from "./components/forms";
-import {validationPopupOpener} from "./validation";
+import {clearValidation, enableValidation} from "./validation";
 import {getInitialCards, getUser} from "./api";
 import {setUserData} from "./components/profile";
+import {config} from "./validationConfig";
 
 // Получение необходимых элементов и разметки
 const editProfilePopup = document.querySelector(".popup_type_edit");
@@ -28,19 +29,20 @@ setPopupListener(deleteCardPopup)
 setPopupListener(avatarPopup)
 editProfilePopupBtn.addEventListener('click', () => {
     fillProfileInputs()
-    validationPopupOpener(profileFormElement)
+    clearValidation(profileFormElement, config)
     openPopup(editProfilePopup)
 })
 newCardPopupBtn.addEventListener('click', () => {
-    validationPopupOpener(cardFormElement)
+    clearValidation(cardFormElement, config)
     openPopup(newCardPopup)
 })
 
 avatarPopupBtn.addEventListener('click', () => {
-    validationPopupOpener(avatarFormElement)
+    clearValidation(avatarFormElement, config)
     openPopup(avatarPopup)
 })
 
+enableValidation(config)
 avatarFormElement.addEventListener('submit', handleAvatarFormSubmit)
 profileFormElement.addEventListener('submit', handleProfileFormSubmit)
 cardFormElement.addEventListener('submit', handleCardFormSubmit)
