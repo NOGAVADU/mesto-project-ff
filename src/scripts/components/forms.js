@@ -1,5 +1,5 @@
 import {closePopup} from "./popups";
-import {cardsContainer, createCardElement} from "./cards";
+import {cardsContainer, cardHandlers, createCardElement} from "./cards";
 import {enableValidation} from "../validation";
 import {createCard, deleteCard, getUser, updateUser, updateUserAvatar} from "../api";
 import {setUserData} from "./profile";
@@ -45,7 +45,6 @@ export function handleDeleteCardSubmit(e, cardId, card) {
         .then(() => card.remove())
         .finally(() => {
             closePopup(deleteCardPopup)
-            deleteCardPopup.dataset.choosenCard = ''
             deleteCardSubmitBtn.textContent = 'Удалить'
         })
 }
@@ -81,7 +80,8 @@ export function handleCardFormSubmit(e) {
     cardSubmitBtn.textContent = 'Сохранение...'
 
     Promise.all([createCard(cardNameInput.value, cardLinkInput.value), userId]).then(data => {
-        const newCard = createCardElement(data[0], data[1])
+        const [card, userId] = data;
+        const newCard = createCardElement(card, userId, cardHandlers)
         cardsContainer.prepend(newCard)
     }).finally(() => {
         closePopup(cardPopup)

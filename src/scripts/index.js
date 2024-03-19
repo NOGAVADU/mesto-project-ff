@@ -22,15 +22,6 @@ const editProfilePopupBtn = document.querySelector(".profile__edit-button");
 const newCardPopupBtn = document.querySelector(".profile__add-button");
 const avatarPopupBtn = document.querySelector(".profile__image__edit-button")
 
-// Загрузка необходимых данных
-Promise.all([getUser, getInitialCards]).then(data => {
-    const user = data[0]
-    const cards = data[1]
-    setUserData(user)
-    cardHandlers.setCardsLikes(cards, user)
-    renderCards(cards, user._id)
-})
-
 setPopupListener(editProfilePopup)
 setPopupListener(newCardPopup)
 setPopupListener(deleteCardPopup)
@@ -52,3 +43,11 @@ avatarPopupBtn.addEventListener('click', () => {
 avatarFormElement.addEventListener('submit', handleAvatarFormSubmit)
 profileFormElement.addEventListener('submit', handleProfileFormSubmit)
 cardFormElement.addEventListener('submit', handleCardFormSubmit)
+
+Promise.all([getUser, getInitialCards]).then(data => {
+    const user = data[0]
+    const cards = data[1]
+    setUserData(user)
+    cardHandlers.setCardsLikes(cards, user)
+    renderCards(cards, user._id)
+})
