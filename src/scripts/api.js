@@ -28,14 +28,14 @@ export const createCard = (name, link) => {
     }).then(handleResponse)
 }
 
-export const likeCard = (cardId) => {
+export const addLikeCard = (cardId) => {
     return fetch(config.baseUrl + `/cards/likes/${cardId}`, {
         method: 'PUT',
         headers: config.headers,
     }).then(handleResponse)
 }
 
-export const removeCardLike = (cardId) => {
+export const deleteLikeCard = (cardId) => {
     return fetch(config.baseUrl + `/cards/likes/${cardId}`, {
         method: 'DELETE',
         headers: config.headers,

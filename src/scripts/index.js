@@ -1,5 +1,5 @@
 import '../pages/index.css'
-import {cardHandlers, renderCards} from "./components/cards";
+import {cardHandlers, cardToDelete, cardToDeleteId, renderCards} from "./components/cards";
 import {setPopupListener, openPopup} from "./components/popups";
 import {
     profileFormElement,
@@ -16,6 +16,7 @@ import {config} from "./validationConfig";
 // Получение необходимых элементов и разметки
 const editProfilePopup = document.querySelector(".popup_type_edit");
 const newCardPopup = document.querySelector(".popup_type_new-card");
+const cardImagePopup = document.querySelector(".popup_type_image");
 const deleteCardPopup = document.querySelector('.popup_type_delete-card')
 const avatarPopup = document.querySelector(".popup_type_avatar")
 
@@ -25,6 +26,7 @@ const avatarPopupBtn = document.querySelector(".profile__image__edit-button")
 
 setPopupListener(editProfilePopup)
 setPopupListener(newCardPopup)
+setPopupListener(cardImagePopup)
 setPopupListener(deleteCardPopup)
 setPopupListener(avatarPopup)
 editProfilePopupBtn.addEventListener('click', () => {
@@ -46,10 +48,10 @@ enableValidation(config)
 avatarFormElement.addEventListener('submit', handleAvatarFormSubmit)
 profileFormElement.addEventListener('submit', handleProfileFormSubmit)
 cardFormElement.addEventListener('submit', handleCardFormSubmit)
+deleteCardFormElement.addEventListener('submit', (evt) => handleDeleteCardSubmit(evt, cardToDeleteId, cardToDelete))
 
 Promise.all([getUser, getInitialCards]).then(data => {
-    const user = data[0]
-    const cards = data[1]
+    const [user, cards] = data;
     setUserData(user)
     cardHandlers.setCardsLikes(cards, user)
     renderCards(cards, user._id)
