@@ -79,9 +79,8 @@ export function handleCardFormSubmit(e) {
     e.preventDefault()
     cardSubmitBtn.textContent = 'Сохранение...'
 
-    Promise.all([createCard(cardNameInput.value, cardLinkInput.value), userId]).then(data => {
-        const [card, userId] = data;
-        const newCard = createCardElement(card, userId, cardHandlers)
+    createCard(cardNameInput.value, cardLinkInput.value).then(card => {
+        const newCard = createCardElement(card, card.owner._id, cardHandlers)
         cardsContainer.prepend(newCard)
     }).finally(() => {
         closePopup(cardPopup)
