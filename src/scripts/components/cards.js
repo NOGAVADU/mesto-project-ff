@@ -20,7 +20,7 @@ const cardHandlers = {
     },
     setCardsLikes: function (cardList, user) {
         // Добавление свойства liked, понравившимся пользователю карточек
-        for (let i = 0; i < cardList.length; i++){
+        for (let i = 0; i < cardList.length; i++) {
             cardList[i].liked = cardList[i].likes.some(like => like._id === user._id);
         }
     },

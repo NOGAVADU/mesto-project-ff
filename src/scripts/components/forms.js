@@ -29,8 +29,6 @@ const deleteCardSubmitBtn = deleteCardFormElement.elements.button
 const deleteCardPopup = document.querySelector('.popup_type_delete-card')
 
 const userId = getUser.then(user => user._id)
-// Включение валидации для форм
-enableValidation([profileFormElement, cardFormElement, avatarFormElement])
 
 export function fillProfileInputs() {
     profileNameInput.value = profileName.textContent
